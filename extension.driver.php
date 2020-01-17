@@ -16,7 +16,7 @@
 
 		/**
 		 *
-		 * Appends js/css files references into the head, if needed
+		 * Appends js/css files references into the head or body, if needed
 		 * @param array $context
 		 */
 		public function appendAssets(array $context)
@@ -27,14 +27,7 @@
 			// publish page
 			if(isset($c['context']['section_handle'])) {
 
-				Administration::instance()->Page->addStylesheetToHead(
-					URL . '/extensions/system_date_fields/assets/system_date_fields.publish.css',
-					'screen',
-					104,
-					false
-				);
-
-				Administration::instance()->Page->addScriptToHead(
+				Administration::instance()->Page->addScriptToBody(
 					URL . '/extensions/system_date_fields/assets/system_date_fields.publish.js',
 					105,
 					false
