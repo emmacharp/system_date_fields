@@ -102,17 +102,20 @@
 		public function displayPublishPanel(XMLElement &$wrapper, $data = null, $flagWithError = null, $fieldnamePrefix = null, $fieldnamePostfix = null, $entry_id = null)
 		{
 			$label = new XMLElement('label');
+			$span = new XMLElement('span');
 			$wrapper->appendChild($label);
-
+			$wrapper->addClass('field-value-readonly');
+			
 			$row = $this->dateFromEntryID($entry_id);
 			$date = $this->parseDate($row);
 			$value = $this->formatDate($date);
-			$time = new XMLElement('time', $value, array('class' => 'field-value-readonly'));
-			$label->setValue($this->get('label'));
-			$label->appendChild($time);
+			$time = new XMLElement('time', $value);
+			$span->setValue($this->get('label'));
+			$label->appendChild($span);
+			$wrapper->appendChild($time);
 
 			if ($this->get('use_timeago') == 'yes') {
-				$label->setAttribute('class', 'js-systemdate-timeago');
+				$wrapper->addClass('js-systemdate-timeago');
 				$time->setAttributeArray(array(
 					'utc' => $date->format('U'),
 					'datetime' => $date->format(DateTime::ISO8601),
